@@ -1,1 +1,1 @@
-# Practice code from from various platform (Leetcode, hackerrank)
+# Practice code from from various platform (Leetcode, hackerrank, etc)
