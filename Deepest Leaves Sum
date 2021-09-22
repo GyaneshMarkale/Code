@@ -1,0 +1,68 @@
+Leet code problem #1302
+
+Example 1:
+                         1
+                      2     3
+                    4   5       6
+                  7                 8
+                  
+Input: root = [1,2,3,4,5,null,6,7,null,null,null,null,8]
+Output: 15
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int deepestLeavesSum(TreeNode root) {
+        int level = height(root);
+        Queue<TreeNode> qn = new LinkedList<>();
+        Queue<Integer> ql = new LinkedList<>();
+        
+        qn.add(root);
+        ql.add(1);
+        int sum = 0;
+        while(!qn.isEmpty()){
+            int curr_level = ql.peek();
+            if(curr_level == level){
+                TreeNode temp = qn.peek();
+                sum += temp.val;
+                qn.remove();
+                ql.remove();
+            }
+            else{
+                TreeNode temp = qn.peek();
+                qn.remove();
+                ql.remove();
+
+                if(temp.left != null){
+                    qn.add(temp.left);
+                    ql.add(curr_level+1);
+                }
+                if(temp.right != null){
+                    qn.add(temp.right);
+                    ql.add(curr_level+1);
+                }
+            }
+                
+        }
+        return sum;
+    }
+    
+    public int height(TreeNode root){
+        if(root == null) return 0;
+        
+        return 1 + Math.max(height(root.left), height(root.right)); 
+    }
+}
